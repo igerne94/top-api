@@ -1,3 +1,4 @@
+import { ConfigService } from '@nestjs/config';
 import {
   Body,
   Controller,
@@ -13,15 +14,23 @@ import { FindTopPageDto } from './dto/find-top-page.dto';
 
 @Controller('top-page')
 export class TopPageController {
+  constructor(private readonly configService: ConfigService) {}
+
   @Post('create')
   async create(@Body() dto: Omit<TopPageModel, '_id'>) {
     console.log(dto);
   }
 
-  @Get(':id')
-  async get(@Param('id') id: string) {
-    console.log(id);
+  @Get('get/:alias')
+  async get(@Param('alias') alias: string): Promise<TopPageModel> {
+    console.log(alias);
+    this.configService.get('TEST');
+    return;
   }
+  // @Get(':id')
+  // async get(@Param('id') id: string) {
+  //   console.log(id);
+  // }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
