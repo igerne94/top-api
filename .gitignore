@@ -34,3 +34,9 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Docker volumes
+mongo-data-4.4/
+
+# Docker Compose logs
+docker-compose*.log
