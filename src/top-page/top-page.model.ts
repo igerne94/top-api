@@ -26,7 +26,7 @@ export class TopPageAdvantage {
   description: string;
 }
 
-@Schema()
+@Schema({ collection: 'top_pages' })
 export class TopPageModel extends Document {
   _id: string;
   @Prop({ required: true, enum: TopLevelCategory })

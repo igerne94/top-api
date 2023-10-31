@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 
-@Schema({ timestamps: true }) // Enable automatic timestamps
+@Schema({ timestamps: true, collection: 'reviews' }) // Enable automatic timestamps
 export class ReviewModel extends Document {
   @Prop({ required: true })
   name: string;
