@@ -1,10 +1,10 @@
 import { Body, Param, Controller, Delete, Post, Get } from '@nestjs/common';
-import { ReviewModel } from './review.model';
-
+import { CreateReviewDto } from './dto/create-review.dto';
 @Controller('review')
-export class RewievController {
+export class ReviewController {
   @Post('create')
-  async create(@Body() dto: Omit<ReviewModel, '_id'>) {
+  // corrected type of incoming data:
+  async create(@Body() dto: CreateReviewDto) {
     console.log(dto);
   }
 

@@ -12,4 +12,4 @@ export class AuthModel extends Document {
 }
 
 export const AuthModelSchema = SchemaFactory.createForClass(AuthModel);
-AuthModelSchema.set('collection', 'User');
+AuthModelSchema.set('collection', 'users');
