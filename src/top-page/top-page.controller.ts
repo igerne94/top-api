@@ -16,10 +16,10 @@ import { FindTopPageDto } from './dto/find-top-page.dto';
 export class TopPageController {
   constructor(private readonly configService: ConfigService) {}
 
-  @Post('create')
-  async create(@Body() dto: Omit<TopPageModel, '_id'>) {
-    console.log(dto);
-  }
+  // @Post('create')
+  // async create(@Body() dto: Omit<TopPageModel, '_id'>) {
+  //   console.log(dto);
+  // }
 
   @Get('get/:alias')
   async get(@Param('alias') alias: string): Promise<TopPageModel> {
