@@ -26,6 +26,14 @@ export class ReviewService {
     }
   }
 
+  async getByProduct(productId: string): Promise<ReviewModel[]> {
+    return this.reviewModel
+      .find({
+        productId: new mongoose.Types.ObjectId(productId),
+      })
+      .exec();
+  }
+
   async delete(id: string): Promise<ReviewModel | null> {
     try {
       const deletedReview = await this.reviewModel.findByIdAndDelete(id).exec();
@@ -40,11 +48,17 @@ export class ReviewService {
     }
   }
 
-  async getByProduct(productId: string): Promise<ReviewModel[]> {
-    return this.reviewModel
-      .find({
-        productId: new mongoose.Types.ObjectId(productId),
-      })
-      .exec();
+  async deleteMany(productId: string): Promise<any> {
+    try {
+      return await this.reviewModel
+        .deleteMany({
+          productId: new mongoose.Types.ObjectId(productId),
+        })
+        .exec();
+    } catch (error) {
+      throw new InternalServerErrorException(
+        `Failed to delete reviews: ${error}`,
+      );
+    }
   }
 }

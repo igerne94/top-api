@@ -12,14 +12,20 @@ export class ReviewController {
     return this.reviewService.create(dto);
   }
 
+  @Get('byProduct/:productId')
+  async getByProduct(@Param('productId') productId: string) {
+    return this.reviewService.getByProduct(productId);
+  }
+
   @Delete(':id')
   async delete(@Param('id') id: string) {
     await this.reviewService.delete(id);
     return { message: 'Review successfully deleted' };
   }
 
-  @Get('byProduct/:productId')
-  async getByProduct(@Param('productId') productId: string) {
-    return this.reviewService.getByProduct(productId);
+  @Delete('byProduct/:productId')
+  async deleteMany(@Param('productId') productId: string) {
+    await this.reviewService.deleteMany(productId);
+    return { message: 'Reviews successfully deleted' };
   }
 }
