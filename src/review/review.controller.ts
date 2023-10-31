@@ -1,20 +1,25 @@
+import { ReviewService } from './review.service';
 import { Body, Param, Controller, Delete, Post, Get } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
+
 @Controller('review')
 export class ReviewController {
+  constructor(private readonly reviewService: ReviewService) {}
+
   @Post('create')
   // corrected type of incoming data:
   async create(@Body() dto: CreateReviewDto) {
-    console.log(dto);
+    return this.reviewService.create(dto);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
-    console.log(id);
+    await this.reviewService.delete(id);
+    return { message: 'Review successfully deleted' };
   }
 
   @Get('byProduct/:productId')
   async getByProduct(@Param('productId') productId: string) {
-    console.log(productId);
+    return this.reviewService.getByProduct(productId);
   }
 }
