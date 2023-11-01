@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
-@Schema({ timestamps: true }) // Enable automatic timestamps
+@Schema({ timestamps: true, collection: 'reviews' }) // Enable automatic timestamps
 export class ReviewModel extends Document {
   @Prop({ required: true })
   name: string;
@@ -11,7 +11,10 @@ export class ReviewModel extends Document {
   description: string;
   @Prop({ required: true, type: Number, min: 0, max: 5 })
   rating: number;
+
+  @Prop({ type: Types.ObjectId }) //?
+  productId: Types.ObjectId;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(ReviewModel);
-ReviewSchema.set('collection', 'Review');
+ReviewSchema.set('collection', 'reviews');

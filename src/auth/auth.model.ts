@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
-@Schema({ timestamps: true }) // Enable automatic timestamps
+@Schema({ timestamps: true, collection: 'users' }) // Enable automatic timestamps
 export class AuthModel extends Document {
   @Prop({ unique: true })
   email: string;
@@ -12,4 +12,4 @@ export class AuthModel extends Document {
 }
 
 export const AuthModelSchema = SchemaFactory.createForClass(AuthModel);
-AuthModelSchema.set('collection', 'User');
+AuthModelSchema.set('collection', 'users');

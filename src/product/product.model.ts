@@ -8,7 +8,7 @@ class ProductCharacteristic {
   value: string;
 }
 
-@Schema({ timestamps: true }) // Enable automatic timestamps
+@Schema({ timestamps: true, collection: 'products' }) // Enable automatic timestamps
 export class ProductModel extends Document {
   _id: string;
   @Prop()
@@ -38,4 +38,4 @@ export class ProductModel extends Document {
 }
 
 export const ProductSchema = SchemaFactory.createForClass(ProductModel);
-ProductSchema.set('collection', 'Product');
+ProductSchema.set('collection', 'products');
