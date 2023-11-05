@@ -26,6 +26,10 @@ export class ReviewService {
     }
   }
 
+  async getAll(): Promise<ReviewModel[]> {
+    return this.reviewModel.find().exec();
+  }
+
   async getByProduct(productId: string): Promise<ReviewModel[]> {
     return this.reviewModel
       .find({
