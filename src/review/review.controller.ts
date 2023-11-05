@@ -1,5 +1,5 @@
 import { ReviewService } from './review.service';
-import { Body, Param, Controller, Delete, Post, Get } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 
 @Controller('review')
@@ -10,6 +10,11 @@ export class ReviewController {
   // corrected type of incoming data:
   async create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
+  }
+
+  @Get()
+  async getAll() {
+    return this.reviewService.getAll();
   }
 
   @Get('byProduct/:productId')
