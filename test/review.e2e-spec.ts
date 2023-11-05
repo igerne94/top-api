@@ -19,7 +19,7 @@ describe('AppController (e2e)', () => {
   let app: INestApplication;
   let createdId: string;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -28,25 +28,7 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  beforeEach(async () => {
-    const { body } = await request(app.getHttpServer())
-      .post('/review/create')
-      .send(testDto);
-    createdId = body._id; // Assuming the body of the response contains the ID
-  });
-
-  // #1 test for get all reviews
-  it('/review/ (GET)', async () => {
-    return request(app.getHttpServer())
-      .get('/review/')
-      .expect(200)
-      .then(({ body }: request.Response) => {
-        createdId = body._id;
-        expect(body.length).toBe(0); //if no elems
-      });
-  });
-
-  // #3 test for create review
+  // #1 test for create review
   it('/review/create (POST) - successs', async () => {
     return request(app.getHttpServer())
       .post('/review/create')
@@ -59,7 +41,18 @@ describe('AppController (e2e)', () => {
       });
   });
 
-  // #2 test for get reviews by product id
+  // #2 test for get all reviews
+  it('/review/ (GET)', async () => {
+    return request(app.getHttpServer())
+      .get('/review/')
+      .expect(200)
+      .then(({ body }: request.Response) => {
+        createdId = body._id;
+        expect(body.length).toBe(0); //if no elems
+      });
+  });
+
+  // #3 test for get reviews by product id
   it('/review/byProduct:productId (GET) - success', async () => {
     console.log('productId: ', productId);
     return request(app.getHttpServer())

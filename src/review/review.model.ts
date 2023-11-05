@@ -11,10 +11,9 @@ export class ReviewModel extends Document {
   description: string;
   @Prop({ required: true, type: Number, min: 0, max: 5 })
   rating: number;
-
+  // reference to the product collection👇
   @Prop({ type: Types.ObjectId }) //?
   productId: Types.ObjectId;
 }
 
 export const ReviewSchema = SchemaFactory.createForClass(ReviewModel);
-ReviewSchema.set('collection', 'reviews');

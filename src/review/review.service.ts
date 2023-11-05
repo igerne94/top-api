@@ -30,10 +30,21 @@ export class ReviewService {
     return this.reviewModel.find().exec();
   }
 
+  /**
+   * Fetches all reviews associated with a given product ID.
+   *
+   * Note: The `productId` is explicitly converted to a MongoDB ObjectId using `new mongoose.Types.ObjectId(productId)`.
+   * This conversion ensures that the string is in the correct format to match ObjectId references in the database.
+   * In most cases, Mongoose automatically handles the conversion of string IDs to ObjectIds.
+   * Therefore, this manual conversion is only necessary if automatic type casting is disabled or
+   * if you need to ensure the operation's consistency regardless of Mongoose's casting behavior.
+   * If the auto-casting is enabled and functioning as expected, the conversion can be omitted and
+   * the `productId` can be used directly in the query.
+   */
   async getByProduct(productId: string): Promise<ReviewModel[]> {
     return this.reviewModel
       .find({
-        productId: new mongoose.Types.ObjectId(productId),
+        productId: productId,
       })
       .exec();
   }

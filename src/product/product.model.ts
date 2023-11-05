@@ -10,8 +10,6 @@ class ProductCharacteristic {
 
 @Schema({ timestamps: true, collection: 'products' }) // Enable automatic timestamps
 export class ProductModel extends Document {
-  _id: string;
-  @Prop()
   image: string;
   @Prop()
   title: string;
@@ -26,16 +24,15 @@ export class ProductModel extends Document {
   @Prop()
   description: string;
   @Prop()
-  advantages: string;
+  advantages: string; //? optional
   @Prop()
   disAdvantages: string;
-  @Prop({ type: () => [String] })
+  @Prop({ type: [String] })
   categories: string[];
-  @Prop({ type: () => [String] })
-  tags: string;
-  @Prop({ type: () => [ProductCharacteristic] })
-  characteristics: ProductCharacteristic;
+  @Prop({ type: [String] })
+  tags: string[];
+  @Prop({ type: () => [ProductCharacteristic], default: [] })
+  characteristics: ProductCharacteristic[];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(ProductModel);
-ProductSchema.set('collection', 'products');
