@@ -41,7 +41,7 @@ export class ReviewService {
    * If the auto-casting is enabled and functioning as expected, the conversion can be omitted and
    * the `productId` can be used directly in the query.
    */
-  async getByProduct(productId: string): Promise<ReviewModel[]> {
+  async getByProductId(productId: string): Promise<ReviewModel[]> {
     return this.reviewModel
       .find({
         productId: productId,
