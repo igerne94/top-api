@@ -1,13 +1,33 @@
 import { ReviewService } from './review.service';
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseFilters,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
+import {
+  TestHttpExceptionFilter,
+  BadRequestExceptionFilter,
+} from 'src/exceptions/http-exception.filters';
 
 @Controller('review')
 export class ReviewController {
   constructor(private readonly reviewService: ReviewService) {}
 
+  // The @UsePipes(new ValidationPipe()) decorator applies
+  //...validation to the incoming request DTO.
+  // If the request data doesn't comply with the CreateReviewDto validation rules,
+  //...the ValidationPipe will throw a default BadRequestException immediately.
+  @UsePipes(new ValidationPipe())
   @Post('create')
-  // corrected type of incoming data:
+  // Now that UseFilters is applied, the BadRequestExceptionFilter will be overwritten
+  @UseFilters(new TestHttpExceptionFilter(), new BadRequestExceptionFilter())
   async create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
   }
