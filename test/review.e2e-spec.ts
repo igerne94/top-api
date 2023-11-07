@@ -36,8 +36,18 @@ describe('AppController (e2e)', () => {
       .expect(201)
       .then(({ body }: request.Response) => {
         createdId = body._id;
-        console.log('createdId: ', createdId);
         expect(createdId).toBeDefined();
+      });
+  });
+
+  // #1.2 test for create review
+  it('/review/create (POST) - test successfully failed', async () => {
+    return request(app.getHttpServer())
+      .post('/review/create')
+      .send({ ...testDto, rating: 0 })
+      .expect(400)
+      .then(({ body }: request.Response) => {
+        console.log('body: ', body);
       });
   });
 
