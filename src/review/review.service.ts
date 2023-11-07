@@ -42,15 +42,11 @@ export class ReviewService {
    * the `productId` can be used directly in the query.
    */
   async getByProductId(productId: string): Promise<ReviewModel[]> {
-    const results = await this.reviewModel
+    return await this.reviewModel
       .find({
         productId: productId,
       })
       .exec();
-    if (results.length < 1) {
-      throw new NotFoundException(`Failed to get reviews for this product`);
-    }
-    return results;
   }
 
   async delete(id: string): Promise<ReviewModel | null> {
