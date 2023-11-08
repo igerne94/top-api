@@ -12,12 +12,10 @@ export class AuthService {
   ) {}
 
   async createUser(dto: AuthDto) {
-    console.log(dto);
     const salt = await genSalt(10);
     const newUser = await this.userModel.create({
       email: dto.login,
       passwordHash: hashSync(dto.password, salt),
-      salt,
     });
     console.log(newUser);
     return newUser.save();
