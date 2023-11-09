@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   UseFilters,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import {
   TestHttpExceptionFilter,
   BadRequestExceptionFilter,
 } from 'src/exceptions/http-exception.filters';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('review')
 export class ReviewController {
@@ -42,12 +44,14 @@ export class ReviewController {
     return this.reviewService.getByProductId(productId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(@Param('id') id: string) {
     await this.reviewService.delete(id);
     return { message: 'Review successfully deleted' };
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('byProduct/:productId')
   async deleteMany(@Param('productId') productId: string) {
     await this.reviewService.deleteMany(productId);
