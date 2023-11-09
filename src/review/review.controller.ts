@@ -17,6 +17,7 @@ import {
   BadRequestExceptionFilter,
 } from 'src/exceptions/http-exception.filters';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
+import { UserEmail } from 'src/decorators/user-email.decorator';
 
 @Controller('review')
 export class ReviewController {
@@ -39,8 +40,13 @@ export class ReviewController {
     return this.reviewService.getAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('byProduct/:productId')
-  async getByProductId(@Param('productId') productId: string) {
+  async getByProductId(
+    @Param('productId') productId: string,
+    @UserEmail() email: string, // get email from jwt token
+  ) {
+    console.log(email);
     return this.reviewService.getByProductId(productId);
   }
 
