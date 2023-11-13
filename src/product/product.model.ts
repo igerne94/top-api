@@ -20,8 +20,6 @@ export class ProductModel extends Document {
   @Prop()
   credit: number;
   @Prop()
-  calculatedRating: number;
-  @Prop()
   description: string;
   @Prop()
   advantages: string; //? optional
