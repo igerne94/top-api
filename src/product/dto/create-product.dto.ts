@@ -1,4 +1,5 @@
 import { Type } from 'class-transformer';
+import { Document } from 'mongoose';
 import {
   IsNumber,
   IsString,
