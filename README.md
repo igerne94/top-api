@@ -1,1 +1,3 @@
 # The progect describes top 20 courses
+
+## https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-handle-errors-gracefully-and-return-standard-error-codes

@@ -10,17 +10,16 @@ class ProductCharacteristic {
 
 @Schema({ timestamps: true, collection: 'products' }) // Enable automatic timestamps
 export class ProductModel extends Document {
+  @Prop()
   image: string;
   @Prop()
   title: string;
   @Prop()
   price: number;
   @Prop()
-  oldPrice: number;
+  oldPrice?: number;
   @Prop()
   credit: number;
-  @Prop()
-  calculatedRating: number;
   @Prop()
   description: string;
   @Prop()

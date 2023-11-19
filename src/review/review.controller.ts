@@ -35,7 +35,7 @@ export class ReviewController {
     return this.reviewService.create(dto);
   }
 
-  @Get()
+  @Get('all')
   async getAll() {
     return this.reviewService.getAll();
   }
