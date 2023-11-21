@@ -18,6 +18,7 @@ import {
 } from 'src/exceptions/http-exception.filters';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { UserEmail } from 'src/decorators/user-email.decorator';
+import { IdValidationPipe } from 'src/pipes/id-validation-pipe/id-validation.pipe';
 
 @Controller('review')
 export class ReviewController {
@@ -52,14 +53,14 @@ export class ReviewController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', IdValidationPipe) id: string) {
     await this.reviewService.delete(id);
     return { message: 'Review successfully deleted' };
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete('byProduct/:productId')
-  async deleteMany(@Param('productId') productId: string) {
+  async deleteMany(@Param('productId', IdValidationPipe) productId: string) {
     await this.reviewService.deleteMany(productId);
     return { message: 'Reviews successfully deleted' };
   }

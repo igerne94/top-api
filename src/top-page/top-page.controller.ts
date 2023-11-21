@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { TopPageModel } from './top-page.model';
 import { FindTopPageDto } from './dto/find-top-page.dto';
+import { IdValidationPipe } from 'src/pipes/id-validation-pipe/id-validation.pipe';
 
 @Controller('top-page')
 export class TopPageController {
@@ -33,12 +34,15 @@ export class TopPageController {
   // }
 
   @Delete(':id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', IdValidationPipe) id: string) {
     console.log(id);
   }
 
   @Patch(':id')
-  async patch(@Param('id') id: string, @Body() dto: TopPageModel) {
+  async patch(
+    @Param('id', IdValidationPipe) id: string,
+    @Body() dto: TopPageModel,
+  ) {
     console.log(id);
     console.log(dto);
   }
