@@ -62,6 +62,7 @@ export class ProductService {
           reviewCount: { $size: '$reviews' },
           reviewAvg: { $avg: '$reviews.rating' },
           reviews: {
+            // better to use mormal sort function
             $function: {
               body: `function(reviews) {
                 reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -74,6 +75,8 @@ export class ProductService {
         },
       },
     ];
+
+    // todo: implement normal sort function for reviews
 
     return this.productModel
       .aggregate(aggregationSteps)
