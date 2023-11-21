@@ -1,55 +1,79 @@
-import { ConfigService } from '@nestjs/config';
+import { TopPageService } from './top-page.service';
 import {
   Body,
   Controller,
   Delete,
   Get,
   HttpCode,
+  NotFoundException,
   Param,
   Patch,
   Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { TopPageModel } from './top-page.model';
-import { FindTopPageDto } from './dto/find-top-page.dto';
+import { CreateTopPageDto } from './dto/create-top-page.dto';
 import { IdValidationPipe } from 'src/pipes/id-validation-pipe/id-validation.pipe';
+import { TOP_PAGE_NOT_FOUND_ERROR } from './top-page.constants';
+import { FindTopPageDto } from './dto/find-top-page.dto';
 
 @Controller('top-page')
 export class TopPageController {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly topPageService: TopPageService) {}
 
-  // @Post('create')
-  // async create(@Body() dto: Omit<TopPageModel, '_id'>) {
-  //   console.log(dto);
-  // }
-
-  @Get('get/:alias')
-  async get(@Param('alias') alias: string): Promise<TopPageModel> {
-    console.log(alias);
-    this.configService.get('TEST');
-    return;
+  @Post('create')
+  async create(@Body() dto: CreateTopPageDto) {
+    return this.topPageService.create(dto);
   }
-  // @Get(':id')
-  // async get(@Param('id') id: string) {
-  //   console.log(id);
-  // }
+
+  @Get(':id')
+  async get(@Param('id', IdValidationPipe) id: string) {
+    const page = await this.topPageService.findById(id);
+    if (!page) {
+      throw new NotFoundException(TOP_PAGE_NOT_FOUND_ERROR);
+    }
+    return page;
+  }
+
+  @Get('byAlias/:alias')
+  async getByAlias(@Param('alias') alias: string) {
+    const page = await this.topPageService.findByAlias(alias);
+    if (!page) {
+      throw new NotFoundException(TOP_PAGE_NOT_FOUND_ERROR);
+    }
+    return page;
+  }
+
+  @Get('all')
+  async getAll() {
+    return this.topPageService.getAll();
+  }
 
   @Delete(':id')
   async delete(@Param('id', IdValidationPipe) id: string) {
-    console.log(id);
+    const deleted = await this.topPageService.deleteById(id);
+    if (!deleted) {
+      throw new NotFoundException(TOP_PAGE_NOT_FOUND_ERROR);
+    }
+    return deleted;
   }
 
   @Patch(':id')
   async patch(
     @Param('id', IdValidationPipe) id: string,
-    @Body() dto: TopPageModel,
+    @Body() dto: CreateTopPageDto,
   ) {
-    console.log(id);
-    console.log(dto);
+    const updated = await this.topPageService.updateById(id, dto);
+    if (!updated) {
+      throw new NotFoundException(TOP_PAGE_NOT_FOUND_ERROR);
+    }
+    return updated;
   }
 
+  @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Post()
+  @Post('find')
   async find(@Body() dto: FindTopPageDto) {
-    console.log(dto);
+    return this.topPageService.findByCategory(dto.firstCategory);
   }
 }
