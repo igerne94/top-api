@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { TopPageAdvantage } from 'src/top-page/top-page.model';
 
 class ProductCharacteristic {
   @Prop()
@@ -22,8 +23,8 @@ export class ProductModel extends Document {
   credit: number;
   @Prop()
   description: string;
-  @Prop()
-  advantages: string; //? optional
+  @Prop({ type: () => [TopPageAdvantage] })
+  advantages: TopPageAdvantage[];
   @Prop()
   disAdvantages: string;
   @Prop({ type: [String] })
