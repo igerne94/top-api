@@ -33,8 +33,11 @@ export class TopPageModel extends Document {
   firstCategory: TopLevelCategory;
   @Prop({ required: true })
   secondCategory: string;
-  @Prop({ required: true })
+
+  // creates index for only one field (curently "title"), does not matter where else the decorator "text" will be applied more. It will be used only for search within "title".
+  @Prop({ required: true, text: true })
   title: string;
+
   @Prop({ unique: true })
   alias: string;
   @Prop({ type: () => HhData })
