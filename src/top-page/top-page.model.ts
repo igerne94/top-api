@@ -53,4 +53,6 @@ export class TopPageModel extends Document {
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
+// TopPageSchema.index({ title: 1, seoText: 1 });
+TopPageSchema.index({ '$**': 'text' });
 TopPageSchema.set('collection', 'top_pages');

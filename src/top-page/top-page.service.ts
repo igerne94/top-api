@@ -23,6 +23,18 @@ export class TopPageService {
     return this.topPageModel.findOne({ alias }).exec();
   }
 
+  async findByText(text: string) {
+    // TODO: add types
+    return this.topPageModel
+      .find({
+        $text: {
+          $search: text,
+          $caseSensitive: false,
+        },
+      })
+      .exec();
+  }
+
   async getAll(): Promise<TopPageModel[]> {
     return this.topPageModel.find().exec();
   }
