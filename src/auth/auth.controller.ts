@@ -32,6 +32,7 @@ export class AuthController {
 
   @HttpCode(200)
   @UsePipes(new ValidationPipe())
+  // used to generate the access token after login:
   @Post('login')
   async login(@Body() { login, password }: AuthDto) {
     // either get user or throw exception:

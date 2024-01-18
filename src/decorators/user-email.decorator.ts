@@ -1,6 +1,4 @@
-/*
-    Custom decorator to get data from the request object.
-*/
+//Custom decorator to get data from the request object.
 import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 
 export const UserEmail = createParamDecorator(

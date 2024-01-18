@@ -1,6 +1,5 @@
 import { UserModel } from './user.model';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { compare } from 'bcryptjs';
 import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from './auth.constants';
 import { JwtService } from '@nestjs/jwt';
@@ -9,7 +8,6 @@ import { UserService } from './user.service';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(UserModel.name)
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
   ) {}
@@ -30,6 +28,7 @@ export class AuthService {
     return { email: user.email };
   }
 
+  // returns the access token, signed by the jwt
   async login(email: string) {
     const payload = { email };
     return {
