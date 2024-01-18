@@ -1,3 +1,14 @@
+# TODO:
+- Advanced MongoDB;
+- Tests for Auth
+- Tests for Review, Product, Page, etc
+- Prod..
+- Docker/docker compose
+- Set up github actions
+- Telegram
+- Integrations
+- Files uploads
+
 # Top API
 
 ![Top API logo](https://raw.githubusercontent.com/igerne94/top-api/main/logo.webp)
