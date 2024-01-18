@@ -8,22 +8,26 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { AuthDto } from './dto.controller/auth.dto';
+import { AuthDto } from './dto/auth.dto';
 import { ALREADY_REFISTERED_ERROR } from './auth.constants';
+import { UserService } from './user.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   // To validate Auth dto during auth, the ValidationPipe is applied:
   @UsePipes(new ValidationPipe())
   @Post('register')
   async register(@Body() dto: AuthDto) {
-    const oldUser = await this.authService.findUser(dto.login);
+    const oldUser = await this.userService.findUser(dto.login);
     if (oldUser) {
       throw new BadRequestException(ALREADY_REFISTERED_ERROR);
     }
-    return this.authService.createUser(dto);
+    return this.userService.createUser(dto);
   }
 
   @HttpCode(200)
