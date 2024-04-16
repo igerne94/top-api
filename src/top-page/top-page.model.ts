@@ -34,8 +34,7 @@ export class TopPageModel extends Document {
   @Prop({ required: true })
   secondCategory: string;
 
-  // creates index for only one field (curently "title"), does not matter where else the decorator "text" will be applied more. It will be used only for search within "title".
-  @Prop({ required: true, text: true })
+  @Prop({ required: true })
   title: string;
 
   @Prop({ unique: true })
@@ -53,6 +52,6 @@ export class TopPageModel extends Document {
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
-// TopPageSchema.index({ title: 1, seoText: 1 });
+// Create index that allows to search through all fields, including nested ones:
 TopPageSchema.index({ '$**': 'text' });
 TopPageSchema.set('collection', 'top_pages');
