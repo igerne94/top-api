@@ -44,7 +44,7 @@ export class ReviewController {
   @UseGuards(JwtAuthGuard)
   @Get('byProduct/:productId')
   async getByProductId(
-    @Param('productId') productId: string,
+    @Param('productId', IdValidationPipe) productId: string,
     @UserEmail() email: string, // get email from jwt token
   ) {
     console.log(email);
