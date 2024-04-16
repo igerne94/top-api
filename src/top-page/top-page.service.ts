@@ -24,7 +24,6 @@ export class TopPageService {
   }
 
   async findByText(text: string) {
-    // TODO: add types
     return this.topPageModel
       .find({
         $text: {
@@ -51,7 +50,24 @@ export class TopPageService {
     firstCategory: TopLevelCategory,
   ): Promise<TopPageModel[]> {
     return this.topPageModel
-      .find({ firstCategory }, { alias: 1, secondCategory: 1, title: 1 }) // restrict more fields and get only the needed feelds
+      .aggregate([
+        {
+          $match: {
+            firstCategory,
+          },
+        },
+        {
+          $group: {
+            _id: { secondCategory: '$secondCategory' },
+            pages: {
+              $push: {
+                alias: '$alias',
+                title: '$title',
+              },
+            },
+          },
+        },
+      ])
       .exec();
   }
 }
