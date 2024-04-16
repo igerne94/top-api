@@ -33,8 +33,10 @@ export class TopPageModel extends Document {
   firstCategory: TopLevelCategory;
   @Prop({ required: true })
   secondCategory: string;
+
   @Prop({ required: true })
   title: string;
+
   @Prop({ unique: true })
   alias: string;
   @Prop({ type: () => HhData })
@@ -50,4 +52,6 @@ export class TopPageModel extends Document {
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
+// Create index that allows to search through all fields, including nested ones:
+TopPageSchema.index({ '$**': 'text' });
 TopPageSchema.set('collection', 'top_pages');

@@ -23,6 +23,17 @@ export class TopPageService {
     return this.topPageModel.findOne({ alias }).exec();
   }
 
+  async findByText(text: string) {
+    return this.topPageModel
+      .find({
+        $text: {
+          $search: text,
+          $caseSensitive: false,
+        },
+      })
+      .exec();
+  }
+
   async getAll(): Promise<TopPageModel[]> {
     return this.topPageModel.find().exec();
   }
@@ -39,7 +50,24 @@ export class TopPageService {
     firstCategory: TopLevelCategory,
   ): Promise<TopPageModel[]> {
     return this.topPageModel
-      .find({ firstCategory }, { alias: 1, secondCategory: 1, title: 1 }) // restrict more fields and get only ones we need
+      .aggregate([
+        {
+          $match: {
+            firstCategory,
+          },
+        },
+        {
+          $group: {
+            _id: { secondCategory: '$secondCategory' },
+            pages: {
+              $push: {
+                alias: '$alias',
+                title: '$title',
+              },
+            },
+          },
+        },
+      ])
       .exec();
   }
 }

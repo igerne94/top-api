@@ -30,6 +30,7 @@ export class ProductService {
   }
 
   async updateById(id: string, dto: ProductModel): Promise<ProductModel> {
+    // normally returns prev version of a doc; to update data on the frontend, use '{ new: true }'
     return this.productModel.findByIdAndUpdate(id, dto, { new: true }).exec();
   }
 
@@ -46,7 +47,7 @@ export class ProductService {
         },
       },
       {
-        $limit: dto.limit, // limit the number of items
+        $limit: dto.limit,
       },
       // attach data from review collection:
       {
@@ -62,29 +63,27 @@ export class ProductService {
           reviewCount: { $size: '$reviews' },
           reviewAvg: { $avg: '$reviews.rating' },
           reviews: {
-            // better to use mormal sort function
-            $function: {
-              body: `function(reviews) {
-                reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                return reviews;
-              }`,
-              args: ['$reviews'],
-              lang: 'js',
+            $sortArray: {
+              input: '$reviews',
+              sortBy: {
+                createdAt: -1, //newest first
+              },
             },
           },
         },
       },
     ];
 
-    // todo: implement normal sort function for reviews
-
-    return this.productModel
-      .aggregate(aggregationSteps)
-      .exec() as unknown as (ProductModel & {
-      // converting to unknown first to avoid type errors
-      review: ReviewModel[];
-      reviewCount: number;
-      reviewAvg: number;
-    })[];
+    // returns Product Model and 3 fields:
+    return (
+      this.productModel
+        .aggregate(aggregationSteps)
+        // converting to unknown first to avoid type errors:
+        .exec() as unknown as (ProductModel & {
+        review: ReviewModel[];
+        reviewCount: number;
+        reviewAvg: number;
+      })[]
+    );
   }
 }

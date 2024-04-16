@@ -61,7 +61,6 @@ export class ProductController {
     @Param('id', IdValidationPipe) id: string,
     @Body() dto: ProductModel,
   ) {
-    // why not CreateProductDto ?
     const updated = await this.productService.updateById(id, dto);
     if (!updated) {
       throw new NotFoundException(PRODUCT_NOT_FOUND_ERROR);
