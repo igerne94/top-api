@@ -51,7 +51,7 @@ export class TopPageService {
     firstCategory: TopLevelCategory,
   ): Promise<TopPageModel[]> {
     return this.topPageModel
-      .find({ firstCategory }, { alias: 1, secondCategory: 1, title: 1 }) // restrict more fields and get only ones we need
+      .find({ firstCategory }, { alias: 1, secondCategory: 1, title: 1 }) // restrict more fields and get only the needed feelds
       .exec();
   }
 }
