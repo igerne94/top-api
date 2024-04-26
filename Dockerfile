@@ -8,7 +8,7 @@ FROM base as dependencies
 COPY --chown=node:node package.json package.json
 COPY --chown=node:node package-lock.json package-lock.json
 
-RUN npm ci --only=production && npm run build
+RUN npm ci --only=production
 
 # Stage 3: Build Image
 FROM dependencies as build

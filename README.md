@@ -1,4 +1,5 @@
 # TODO:
+
 - Advanced MongoDB;
 - Tests for Auth
 - Tests for Review, Product, Page, etc
@@ -33,6 +34,12 @@ $ npm run start
 ```bash
 # unit tests
 $ npm run test
+```
+
+## Docker build
+
+```bash
+$ docker build -t top-api .
 ```
 
 ## Architecture Patters / Code Style
