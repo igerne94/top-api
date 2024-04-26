@@ -1,5 +1,5 @@
 # Stage 1: Base Image
-FROM node:18-alpine AS base
+FROM node:18.19-alpine AS base
 WORKDIR /home/node/app
 
 # Stage 2: Install Dependencies
