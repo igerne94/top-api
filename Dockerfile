@@ -4,10 +4,8 @@ WORKDIR /home/node/app
 
 # Stage 2: Install Dependencies
 FROM base as dependencies
-
 COPY --chown=node:node package.json package.json
 COPY --chown=node:node package-lock.json package-lock.json
-
 RUN npm ci --only=production
 
 # Stage 3: Build Image
@@ -17,7 +15,7 @@ RUN npm run build
 
 # Stage 4: Production Image
 FROM base AS production
-COPY --chown=node:node --from=dependencies /home/node/app/node_modules_production node_modules
+COPY --chown=node:node --from=build /home/node/app/node_modules node_modules
 COPY --chown=node:node --from=build /home/node/app/dist dist
 
 USER node
