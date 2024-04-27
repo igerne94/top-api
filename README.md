@@ -4,7 +4,7 @@
 - Prod..
   - Docker/docker compose ✅
   - Set up github actions ✅
-  - Set up Container Registry: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+  - Set up Container Registry: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry ✅
 - Integration w Telegram
 - Tests for Auth
 - Tests for Review, Product, Page, etc
