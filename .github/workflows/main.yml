@@ -14,8 +14,8 @@ jobs:
       - name: Publish Docker container
         uses: elgohr/Publish-Docker-Github-Action@v5
         with:
-          registry: docker.pkg.github.com
-          name: docker.pkg.github.com/igerne94/top-api/top-api
+          registry: ghcr.io
+          name: ghcr.io/igerne94/top-api/top-api
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           tags: "develop"
