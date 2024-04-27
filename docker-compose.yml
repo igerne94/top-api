@@ -4,11 +4,15 @@ services:
     image: mongo:4.4.4
     container_name: mongo
     restart: always
+    volumes:
+      - ./mongo-data-4.4:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
     ports:
       - 27017:27017
+    networks:
+      - app-network
 
   top.api:
     build: .
@@ -19,8 +23,16 @@ services:
     restart: always
     ports:
       - 3030:3030
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/top_api
     volumes:
       - ./.env:/opt/app/.env
+    networks:
+      - app-network
 
 volumes:
   mongo_data:
+
+networks:
+  app-network:
+    driver: bridge

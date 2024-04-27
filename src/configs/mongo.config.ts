@@ -13,15 +13,7 @@ export const getMongoConfig = async (
 };
 
 const getMongoString = (configService: ConfigService): string | null => {
-  return (
-    configService.get<string>('MONGO_BASE') +
-    '://' +
-    configService.get<string>('MONGO_HOST') +
-    ':' +
-    configService.get<string>('MONGO_PORT') +
-    '/' +
-    configService.get<string>('MONGO_DB')
-  );
+  return configService.get<string>('MONGODB_URI');
 };
 
 const getMongoOptions = () => {
