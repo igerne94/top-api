@@ -1,10 +1,26 @@
 version: '3'
 services:
+  mongo:
+    image: mongo:4.4.4
+    container_name: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    ports:
+      - 27017:27017
+
   top.api:
+    build: .
     image: ghcr.io/igerne94/top-api/top-api:develop
     container_name: top-api
+    depends_on:
+      - mongo
     restart: always
     ports:
       - 3030:3030
     volumes:
       - ./.env:/opt/app/.env
+
+volumes:
+  mongo_data:

@@ -50,6 +50,7 @@ The project is writted with [Nest.js](https://docs.nestjs.com/).
 - Tools to set up environment: Node.js, MongoDB, TSLint, nvm, nestjs-cli;
 - ~~docker-compose.yml to run MongoDB;~~
 - dockerfile to build the image of the app, and docker-compose.yml to run the container;
+- Now when run docker-compose up, the image from the container registry on github is pulled and the app is started;
 - Data validation:
   - ![Data-validation logo](https://raw.githubusercontent.com/igerne94/top-api/main/data-validation.webp);
   - Validation Pipes and Exception filters;
