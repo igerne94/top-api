@@ -61,10 +61,51 @@ The project is writted with [Nest.js](https://docs.nestjs.com/).
     - ![jwt logo](https://github.com/igerne94/top-api/blob/main/jwt.png);
     - in auth.service: when a user logs in, an access_token is generated and returned to the client;
 
-## Debugging notes
+## Debuggings on which I spent hours and days
 
 - Something to pay attention: https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/#h-handle-errors-gracefully-and-return-standard-error-codes
 
 - When testing product with reviews, in mongoDB the "productId" field by default is string, but should be converted to ObjectId(). It is possible to change type manually from compas and then the request with getting a product with appropriate reviews will be correct, otherwise some reviews can be missed.
 
-- When setting up workflows, DOCKER_USERNAME and DOCKER_PASSWORD consts are used. DOCKER_USERNAME set up in github repo secrets and is an owner username, while DOCKER_PASSWORD is a personal access token value, which is added to github secrets as well.
+- When setting up gh-workflows, DOCKER_USERNAME and DOCKER_PASSWORD consts are used. DOCKER_USERNAME set up in github repo secrets and is an owner username, while DOCKER_PASSWORD is a personal access token value, which is added to github repo secrets as well.
+
+- When using image from github package:
+
+  ```bash
+  # run the image:
+  $ docker-compose down
+  $ docker-compose up
+  ```
+
+  ```bash
+  # run mongo container
+  $ docker exec -it mongo mongo -u admin -p admin --authenticationDatabase admin
+  ```
+
+  ⬆️ This command will open the MongoDB shell loggedin as admin user. This assumes that the MongoDB instance was started with a root user named admin with a password of admin, as specified by the MONGO_INITDB_ROOT_USERNAME and MONGO_INITDB_ROOT_PASSWORD in docker-compose.
+
+  - Create or Verify MongoDB User (user/password) per mongodb data volume (done once, unless delete this volume):
+
+    ```bash
+    $ use top_api
+    $ db.createUser({
+      user: "admin",
+      pwd: "admin",
+      roles: [{role: "dbOwner", db: "top_api"}]
+    })
+    ```
+
+  - If the user already exists, ensure it has the correct roles:
+
+    ```bash
+    $ db.grantRolesToUser("admin", [{role: "dbOwner", db: "top_api"}])
+    ```
+
+  - Exit MongoDB shell by typing 'exit'.
+
+  - Restart docker-compose:
+
+    ```bash
+    $ docker-compose down
+    $ docker-compose up
+    ```
