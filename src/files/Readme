@@ -1,0 +1,38 @@
+For to serve images to Frontend this way - letting Node.js app handle it directly with @nestjs/serve-static is not the best way to store in uploads. Much better is to store with NGinx.
+
+- Why Use Nginx for Static Content?
+
+  - Performance: Nginx is optimized for static content delivery. It handles static files much faster than Node.js because it is specifically designed to do so with lower memory and CPU usage.
+  - Efficiency: Offloading the task of serving static files to Nginx frees up the Node.js app to handle only the dynamic content. This separation of concerns can significantly enhance the scalability and responsiveness of applications.
+  - Caching: Nginx provides powerful caching features that can reduce the load on application server and improve response times for end-users.
+  - Load Balancing: Nginx can also act as a load balancer, distributing client requests efficiently across multiple backend servers, enhancing the application's overall reliability and availability.
+  - Simplified Node.js Application: By removing the responsibility of serving static files from Node.js application, the app can be simplified and more focused on its core functionality.
+
+- Configure Nginx: - Assume thr static files are stored in /var/www/html/uploads - Edit the Nginx config /etc/nginx/sites-available/default:
+
+  ````bash
+  # config file
+  server {
+      listen 80;
+
+      server_name yourdomain.com;
+
+      location /static {
+          alias /var/www/html/uploads;
+          expires 30d; # Setup caching
+      }
+
+      location / {
+          proxy_pass http://localhost:3000;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection 'upgrade';
+          proxy_set_header Host $host;
+          proxy_cache_bypass $http_upgrade;
+      }
+  }
+  ```bash
+    $ sudo systemctl restart nginx
+  ```
+
+  ````
