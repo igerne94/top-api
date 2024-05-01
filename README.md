@@ -8,7 +8,8 @@
 - Integration w Telegram
 - Tests for Auth
 - Tests for Review, Product, Page, etc
-- Files uploads and conversion
+- Files uploads and conversion ✅
+- Fix image: node version for Sharp and move to normal deps
 
 # Top API
 
