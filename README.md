@@ -8,7 +8,7 @@
 - Integration w Telegram
 - Tests for Auth
 - Tests for Review, Product, Page, etc
-- Files uploads
+- Files uploads and conversion
 
 # Top API
 
@@ -60,6 +60,7 @@ The project is writted with [Nest.js](https://docs.nestjs.com/).
   - Authorization will be done with JWT, nestjs/jwt library, passport (pasport-wrapper, passport itself, and one of the strategies);
     - ![jwt logo](https://github.com/igerne94/top-api/blob/main/jwt.png);
     - in auth.service: when a user logs in, an access_token is generated and returned to the client;
+- When file uploads/conversion, Sharp library is used to convert images;
 
 ## Debuggings on which I spent hours and days
 
