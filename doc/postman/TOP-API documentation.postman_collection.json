@@ -25,11 +25,56 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"login\": \"hanna\",\n    \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Gets information about the authenticated user."
+					},
+					"response": []
+				},
+				{
+					"name": "Get authenticated user Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"admin\",\n    \"password\": \"admin\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,27 +148,29 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhhbm5hIiwiaWF0IjoxNzA3MTU5NjU1fQ.W73mwwdJdAPn5EQdzaDoQ3eEDPeIPqKA0XIBldrEOxc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.getpostman.com/collections/{{collectionId}}",
-							"protocol": "https",
+							"raw": "http://localhost:3000/api/product/all",
+							"protocol": "http",
 							"host": [
-								"api",
-								"getpostman",
-								"com"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
-								"collections",
-								"{{collectionId}}"
-							],
-							"query": [
-								{
-									"key": "access_key",
-									"value": "{{accessKey}}",
-									"description": "Optional. A collection's read-only access key. Using this query parameter does not require an API key to call the endpoint.",
-									"disabled": true
-								}
+								"api",
+								"product",
+								"all"
 							]
 						},
 						"description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
@@ -464,10 +511,29 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhhbm5hIiwiaWF0IjoxNzA3MTU5NjU1fQ.W73mwwdJdAPn5EQdzaDoQ3eEDPeIPqKA0XIBldrEOxc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"image\": \"path/to/music-course-image.jpg\",\n    \"title\": \"Complete Piano Masterclass\",\n    \"price\": 99,\n    \"oldPrice\": 120,\n    \"credit\": 10,\n    \"description\": \"Description.\",\n    \"advantages\": \"Advantages.\",\n    \"disAdvantages\": \"Disadvantages.\",\n    \"categories\": [\n        \"Music\",\n        \"Instruments\",\n        \"Education\"\n    ],\n    \"tags\": [\n        \"piano\",\n        \"music theory\",\n        \"online course\",\n        \"masterclass\"\n    ],\n    \"characteristics\": [\n        {\n            \"name\": \"Duration\",\n            \"value\": \"3 months\"\n        },\n        {\n            \"name\": \"Skill Level\",\n            \"value\": \"Beginner to Advanced\"\n        },\n        {\n            \"name\": \"Access\",\n            \"value\": \"Lifetime\"\n        },\n        {\n            \"name\": \"Includes\",\n            \"value\": \"Certificates of Completion\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/api/top-page",
+							"raw": "http://localhost:3000/api/product/65a962def446d0b3141b1034",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -475,12 +541,13 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"top-page"
+								"product",
+								"65a962def446d0b3141b1034"
 							],
 							"query": [
 								{
 									"key": "workspace",
-									"value": "{{workspaceId}}",
+									"value": "",
 									"description": "Optional. A workspace ID.",
 									"disabled": true
 								}
@@ -639,21 +706,21 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.getpostman.com/collections/{{collectionId}}",
-							"protocol": "https",
+							"raw": "http://localhost:3000/api/top-page/655d045fb13bd1fcc7dd48af",
+							"protocol": "http",
 							"host": [
-								"api",
-								"getpostman",
-								"com"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
-								"collections",
-								"{{collectionId}}"
+								"api",
+								"top-page",
+								"655d045fb13bd1fcc7dd48af"
 							],
 							"query": [
 								{
 									"key": "access_key",
-									"value": "{{accessKey}}",
+									"value": "{{accessKey",
 									"description": "Optional. A collection's read-only access key. Using this query parameter does not require an API key to call the endpoint.",
 									"disabled": true
 								}
@@ -810,21 +877,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.getpostman.com/collections/{{collectionId}}",
-							"protocol": "https",
+							"raw": "http://localhost:3000/api/top-page/byAlias/TypeScript",
+							"protocol": "http",
 							"host": [
-								"api",
-								"getpostman",
-								"com"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
-								"collections",
-								"{{collectionId}}"
+								"api",
+								"top-page",
+								"byAlias",
+								"TypeScript"
 							],
 							"query": [
 								{
 									"key": "access_key",
-									"value": "{{accessKey}}",
+									"value": "",
 									"description": "Optional. A collection's read-only access key. Using this query parameter does not require an API key to call the endpoint.",
 									"disabled": true
 								}
@@ -981,21 +1049,22 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.getpostman.com/collections/{{collectionId}}",
-							"protocol": "https",
+							"raw": "http://localhost:3000/api/top-page/textSearch/Advantage",
+							"protocol": "http",
 							"host": [
-								"api",
-								"getpostman",
-								"com"
+								"localhost"
 							],
+							"port": "3000",
 							"path": [
-								"collections",
-								"{{collectionId}}"
+								"api",
+								"top-page",
+								"textSearch",
+								"Advantage"
 							],
 							"query": [
 								{
 									"key": "access_key",
-									"value": "{{accessKey}}",
+									"value": "",
 									"description": "Optional. A collection's read-only access key. Using this query parameter does not require an API key to call the endpoint.",
 									"disabled": true
 								}
@@ -1163,7 +1232,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"category\": \"Music\",\n    \"limit\": 2\n}",
+							"raw": "{\n    \"firstCategory\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1171,7 +1240,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/product/find",
+							"raw": "http://localhost:3000/api/top-page/find",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1179,7 +1248,7 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"product",
+								"top-page",
 								"find"
 							],
 							"query": [
@@ -1353,7 +1422,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"category\": \"Music\",\n    \"limit\": 2\n}",
+							"raw": "{\n  \"firstCategory\": 1,\n  \"secondCategory\": \"Programming\",\n  \"title\": \"Introduction to JavaScript\",\n  \"alias\": \"JavaScript\",\n  \"hh\": {\n    \"count\": 10,\n    \"juniorSalary\": 500,\n    \"middleSalary\": 1500,\n    \"seniorSalary\": 3000\n  },\n  \"advantages\": [\n    {\n      \"title\": \"Advantage 1\",\n      \"description\": \"Description of advantage 1\"\n    }\n  ],\n  \"seoText\": \"Learn JavaScript with this comprehensive course.\",\n  \"tagsTitle\": \"JavaScript, Programming\",\n  \"tags\": [\"JavaScript\"]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1361,7 +1430,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/product/find",
+							"raw": "http://localhost:3000/api/top-page/create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1369,8 +1438,8 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"product",
-								"find"
+								"top-page",
+								"create"
 							],
 							"query": [
 								{
@@ -1529,10 +1598,29 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhhbm5hIiwiaWF0IjoxNzA3MTU5NjU1fQ.W73mwwdJdAPn5EQdzaDoQ3eEDPeIPqKA0XIBldrEOxc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstCategory\": 1,\n    \"secondCategory\": \"Programming\",\n    \"title\": \"Introduction to TypeScript\",\n    \"alias\": \"TypeScript\",\n    \"hh\": {\n        \"count\": 10,\n        \"juniorSalary\": 500,\n        \"middleSalary\": 1500,\n        \"seniorSalary\": 3000\n    },\n    \"advantages\": [\n        {\n            \"title\": \"Advantage 1\",\n            \"description\": \"Description of advantage 1\"\n        },\n        {\n            \"title\": \"Advantage 2\",\n            \"description\": \"Description of advantage 2\"\n        }\n    ],\n    \"seoText\": \"Learn TypeScript with this comprehensive course.\",\n    \"tagsTitle\": \"TypeScript, Programming\",\n    \"tags\": [\n        \"TypeScript\",\n        \"Programming\",\n        \"Web Development\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3000/api/top-page",
+							"raw": "http://localhost:3000/api/top-page/655d045fb13bd1fcc7dd48af",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1540,12 +1628,13 @@
 							"port": "3000",
 							"path": [
 								"api",
-								"top-page"
+								"top-page",
+								"655d045fb13bd1fcc7dd48af"
 							],
 							"query": [
 								{
 									"key": "workspace",
-									"value": "{{workspaceId}}",
+									"value": "",
 									"description": "Optional. A workspace ID.",
 									"disabled": true
 								}
@@ -1694,7 +1783,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"My review on complete piano class\",\n  \"title\": \"Title\",\n  \"description\": \"description\",\n  \"rating\": 5,\n  \"productId\": \"65a962def446d0b3141b1034\",\n  \"__v\": 0\n}",
+							"raw": "{\n  \"name\": \"Julia\",\n  \"title\": \"Another review on Complete Piano MC\",\n  \"rating\": 4,\n  \"description\": \"Just short\",\n  \"productId\": \"65a962def446d0b3141b1034\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1720,8 +1809,67 @@
 				{
 					"name": "Get review",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhhbm5hIiwiaWF0IjoxNzA3MTU5NjU1fQ.W73mwwdJdAPn5EQdzaDoQ3eEDPeIPqKA0XIBldrEOxc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/review/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"all"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Files",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": "postman-cloud:///1ef07bd2-183e-44c0-989b-8afd22bab8bd"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/files/upload",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"files",
+								"upload"
+							]
+						}
 					},
 					"response": []
 				}
