@@ -10,6 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { getMongoConfig } from './configs/mongo.config';
 import { HealthModule } from './health/health.module';
 import { FilesModule } from './files/files.module';
+import { SitemapModule } from './sitemap/sitemap.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { FilesModule } from './files/files.module';
     ReviewModule,
     HealthModule,
     FilesModule,
+    SitemapModule,
   ],
   controllers: [AppController],
   providers: [AppService],

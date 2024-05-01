@@ -1843,8 +1843,18 @@
 			"name": "Files",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Upload file",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imhhbm5hIiwiaWF0IjoxNzA3MTU5NjU1fQ.W73mwwdJdAPn5EQdzaDoQ3eEDPeIPqKA0XIBldrEOxc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -1853,7 +1863,7 @@
 								{
 									"key": "files",
 									"type": "file",
-									"src": "postman-cloud:///1ef07bd2-183e-44c0-989b-8afd22bab8bd"
+									"src": "postman-cloud:///1ef07c29-4fa0-4d80-95a9-9116f97228ce"
 								}
 							]
 						},
@@ -1868,6 +1878,59 @@
 								"api",
 								"files",
 								"upload"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get file",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "image/jpeg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/static/2024-05-01/2A313DAF-BB9A-4452-BDC5-96EC17543048.jpeg",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"static",
+								"2024-05-01",
+								"2A313DAF-BB9A-4452-BDC5-96EC17543048.jpeg"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sitemap",
+			"item": [
+				{
+					"name": "Get sitemap",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/sitemap/xml",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"sitemap",
+								"xml"
 							]
 						}
 					},

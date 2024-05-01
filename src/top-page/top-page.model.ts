@@ -49,6 +49,8 @@ export class TopPageModel extends Document {
   tagsTitle: string;
   @Prop({ type: () => [String] })
   tags: string[];
+  @Prop()
+  updatedAt?: Date;
 }
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
