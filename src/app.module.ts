@@ -11,6 +11,7 @@ import { getMongoConfig } from './configs/mongo.config';
 import { HealthModule } from './health/health.module';
 import { FilesModule } from './files/files.module';
 import { SitemapModule } from './sitemap/sitemap.module';
+import { TelegramModule } from './telegram/telegram.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { SitemapModule } from './sitemap/sitemap.module';
     HealthModule,
     FilesModule,
     SitemapModule,
+    TelegramModule,
   ],
   controllers: [AppController],
   providers: [AppService],

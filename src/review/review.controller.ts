@@ -19,10 +19,14 @@ import {
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { UserEmail } from 'src/decorators/user-email.decorator';
 import { IdValidationPipe } from 'src/pipes/id-validation-pipe/id-validation.pipe';
+import { TelegramService } from './../telegram/telegram.service';
 
 @Controller('review')
 export class ReviewController {
-  constructor(private readonly reviewService: ReviewService) {}
+  constructor(
+    private readonly reviewService: ReviewService,
+    private readonly telegramService: TelegramService,
+  ) {}
 
   // The @UsePipes(new ValidationPipe()) decorator applies
   //...validation to the incoming request DTO.
@@ -34,6 +38,22 @@ export class ReviewController {
   @UseFilters(new TestHttpExceptionFilter(), new BadRequestExceptionFilter())
   async create(@Body() dto: CreateReviewDto) {
     return this.reviewService.create(dto);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @Post('notify')
+  // Now that UseFilters is applied, the BadRequestExceptionFilter will be overwritten
+  @UseFilters(new TestHttpExceptionFilter(), new BadRequestExceptionFilter())
+  async notify(@Body() dto: CreateReviewDto) {
+    const message =
+      `Name ${dto.name}\n` +
+      `title ${dto.title}\n` +
+      `description ${dto.description}\n` +
+      `rating ${dto.rating}\n` +
+      `productId ${dto.productId}`;
+
+    // TODO: post the review to db
+    return this.telegramService.sendMessage(message);
   }
 
   @Get('all')
