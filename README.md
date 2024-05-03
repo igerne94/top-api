@@ -23,6 +23,10 @@
 - **Advanced Filtering:** Utilize complex queries to find products based on specific criteria.
 - **User Authentication:** Secure user management with encrypted passwords and JWT for sessions.
 - **Docker Integration:** Ready to deploy with Docker for easy setup and scalability.
+- **File Uploads:** Upload images and convert them to different formats for use in the app.
+- **Telegram Integration:** Receive notifications about new Reviews via Telegram.
+
+  ![Telegram bot logo] (https://raw.githubusercontent.com/igerne94/top-api/main/telegram-bot.tg_bot)
 
 ## Installation
 
