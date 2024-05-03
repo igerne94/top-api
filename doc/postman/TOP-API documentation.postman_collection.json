@@ -1863,7 +1863,7 @@
 								{
 									"key": "files",
 									"type": "file",
-									"src": "postman-cloud:///1ef07c29-4fa0-4d80-95a9-9116f97228ce"
+									"src": "postman-cloud:///1ef094e3-7fc1-40a0-9061-5cf449a35562"
 								}
 							]
 						},
@@ -1931,6 +1931,41 @@
 								"api",
 								"sitemap",
 								"xml"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Telegram",
+			"item": [
+				{
+					"name": "Get telegram notification",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Hannas test 2\",\n    \"title\": \"Review title\",\n    \"description\": \"Test description\",\n    \"rating\": 5,\n    \"productId\": \"65a962def446d0b3141b1034\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/review/notify",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"review",
+								"notify"
 							]
 						}
 					},
