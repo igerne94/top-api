@@ -1,11 +1,11 @@
 version: '3'
 services:
   mongo:
-    image: mongo:5.2
+    image: mongo:5.0
     container_name: mongo
     restart: always
     volumes:
-      - ./mongo-data-5.2:/data/db
+      - ./mongo-data-5.0:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=admin
