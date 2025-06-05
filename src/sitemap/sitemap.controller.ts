@@ -21,63 +21,39 @@ export class SitemapController {
   @Header('Content-Type', 'text/xml')
   async sitemap() {
     const formatString = "yyyy-MM-dd'T'HH:mm:00.000xxx";
-    const urlsRes: Array<{
-      loc: string;
-      lastmod: string;
-      changefreq: string;
-      priority: string;
-    }> = [
+    let urlsRes = [
+      // describing the main page:
       {
         loc: `${this.domain}`,
-        lastmod: format(subDays(new Date(), 1), formatString),
+        lastmod: format(subDays(new Date(), 1), formatString), //
         changefreq: 'daily',
         priority: '1.0',
       },
+      // describing the courses page:
       {
         loc: `${this.domain}/courses`,
         lastmod: format(subDays(new Date(), 1), formatString),
         changefreq: 'daily',
         priority: '0.8',
       },
+      //TODO: describe the rest of the pages.
     ];
 
-    // Fetch all top-pages
     const pagesArr = await this.topPageService.getAll();
 
-    // Map over pagesArr, but guard updatedAt carefully:
-    const pageUrls = pagesArr.map((page) => {
-      let lastModDate: Date;
+    urlsRes = urlsRes.concat(
+      pagesArr.map((page) => {
+        return {
+          loc: `${this.domain}${CATEGORY_URL[page.firstCategory]}/${
+            page.alias
+          }`,
+          lastmod: format(new Date(page.updatedAt) ?? new Date(), formatString),
+          changefreq: 'weekly',
+          priority: '0.7',
+        };
+      }),
+    );
 
-      if (page.updatedAt) {
-        const parsed = new Date(page.updatedAt);
-        if (isNaN(parsed.getTime())) {
-          // Log which page had an invalid updatedAt
-          console.warn(
-            `[Sitemap] Invalid updatedAt for page id=${page._id}:`,
-            page.updatedAt,
-          );
-          lastModDate = new Date();
-        } else {
-          lastModDate = parsed;
-        }
-      } else {
-        // Log missing updatedAt entirely
-        console.warn(
-          `[Sitemap] Missing updatedAt for page id=${page._id}. Falling back to now.`,
-        );
-        lastModDate = new Date();
-      }
-
-      return {
-        loc: `${this.domain}${CATEGORY_URL[page.firstCategory]}/${page.alias}`,
-        lastmod: format(lastModDate, formatString),
-        changefreq: 'weekly',
-        priority: '0.7',
-      };
-    });
-
-    const allUrls = urlsRes.concat(pageUrls);
-    console.log('[Sitemap] urlsRes total:', allUrls);
     const builder = new Builder({
       xmldec: { version: '1.0', encoding: 'UTF-8' },
     });
