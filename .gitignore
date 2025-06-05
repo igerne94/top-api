@@ -40,6 +40,7 @@ lerna-debug.log*
 # Docker volumes
 mongo-data-4.4/
 mongo-data-5.0/
+mongo-data-6.0/
 
 # Docker Compose logs
 docker-compose*.log
