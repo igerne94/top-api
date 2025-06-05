@@ -72,6 +72,30 @@ export class ProductService {
           },
         },
       },
+      // {
+      //   $lookup: {
+      //     from: 'reviews',
+      //     let: { productId: '$_id' },
+      //     pipeline: [
+      //       {
+      //         $match: {
+      //           $expr: { $eq: ['$productId', '$$productId'] },
+      //         },
+      //       },
+      //       {
+      //         $sort: { createdAt: -1 }, // newest reviews first
+      //       },
+      //     ],
+      //     as: 'reviews',
+      //   },
+      // },
+
+      // {
+      //   $addFields: {
+      //     reviewCount: { $size: '$reviews' },
+      //     reviewAvg: { $avg: '$reviews.rating' },
+      //   },
+      // },
     ];
 
     // returns Product Model and 3 fields:
