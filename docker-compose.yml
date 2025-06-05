@@ -15,6 +15,7 @@ services:
       - app-network
 
   top.api:
+    platform: linux/arm64
     build: .
     image: ghcr.io/igerne94/top-api/top-api:develop
     container_name: top-api
@@ -24,7 +25,7 @@ services:
     ports:
       - 3030:3000
     environment:
-      - MONGODB_URI=mongodb://admin:admin@mongo:27017/top_api
+      - MONGODB_URI=mongodb://admin:admin@mongo:27017/top_api?authSource=admin
     volumes:
       - ./.env:/opt/app/.env
     networks:

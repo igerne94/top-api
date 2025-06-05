@@ -1,8 +1,9 @@
-FROM node:18.19-alpine
+FROM node:18.19-slim
 WORKDIR /opt/app
-ADD package.json package.json
+COPY package.json package.json
 RUN npm install
-ADD . .
+RUN rm -f /opt/app/node_modules/.bin/node
+COPY . .
 RUN npm run build
 RUN npm prune --production
 CMD ["node", "dist/main.js"]
