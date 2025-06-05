@@ -19,7 +19,7 @@ export class FilesController {
   @Post('upload')
   @HttpCode(201)
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FileInterceptor('files'))
+  @UseInterceptors(FileInterceptor('files')) //  перехватываем поле 'files' и его содержимое помещаем  в UploadedFile
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
   ): Promise<FileElementResponse[]> {
