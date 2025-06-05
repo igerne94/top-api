@@ -29,6 +29,11 @@ export class TopPageController {
     return this.topPageService.create(dto);
   }
 
+  @Get('all')
+  async getAll() {
+    return this.topPageService.getAll();
+  }
+
   @Get(':id')
   async get(@Param('id', IdValidationPipe) id: string) {
     const page = await this.topPageService.findById(id);
@@ -45,11 +50,6 @@ export class TopPageController {
       throw new NotFoundException(TOP_PAGE_NOT_FOUND_ERROR);
     }
     return page;
-  }
-
-  @Get('all')
-  async getAll() {
-    return this.topPageService.getAll();
   }
 
   @UseGuards(JwtAuthGuard)
